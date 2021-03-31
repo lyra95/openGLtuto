@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <assert.h>
 
 struct ShaderProgramSource
 {
@@ -104,6 +105,8 @@ int main(void)
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
 
+    glfwSwapInterval(10);
+
     // Initialize glew. print ERROR if it fails
     if (glewInit() != GLEW_OK) 
         std::cout << "ERROR" << std::endl;
@@ -146,6 +149,12 @@ int main(void)
     unsigned int shader = CreatShader(source.VextexSource, source.FragmentSource);
     glUseProgram(shader);
 
+    unsigned int location = glGetUniformLocation(shader, "u_Color");
+    // std::assert(location != -1);
+    glUniform4f(location, 0.2f, 0.3f, 0.8f, 1.0f);
+
+    float r = 0.0f;
+    float increment = 0.05f;
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
@@ -153,8 +162,10 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT);
 
         // draw
+        glUniform4f(location, r, 0.3f, 0.8f, 1.0f);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
+        (r > 1.0f) ? r = -0.05f : r += increment;
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
 
@@ -162,7 +173,7 @@ int main(void)
         glfwPollEvents();
     }
 
-    glDeleteProgram(shader);
+    //glDeleteProgram(shader);
 
     glfwTerminate();
     return 0;
