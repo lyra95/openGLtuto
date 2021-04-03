@@ -6,18 +6,23 @@ layout(location = 1) in vec2 texCoord;
 
 out vec2 v_TexCoord;
 
+uniform matrix4 proj;
+uniform matrix4 obj;
+uniform matrix4 eye;
+
 void main()
 {
-	gl_Position = position;
+	gl_Position = proj^(-1)*eye^(-1)*obj*position;
 	v_TexCoord = texCoord;
 };
 
 #shader fragment
 #version 330 core
 
+in vec2 v_TexCoord;
+
 layout(location = 0) out vec4 color;
 
-in vec2 v_TexCoord;
 
 uniform vec4 u_Color;
 uniform sampler2D u_Texture;
