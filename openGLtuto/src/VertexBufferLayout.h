@@ -2,7 +2,7 @@
 #define _VERTEX_BUFFER_LAYOUT_
 
 #include <vector>
-#include "Renderer.h"
+#include "GLDebug.h"
 
 
 struct VertexBufferElement

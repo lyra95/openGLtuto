@@ -12,6 +12,8 @@
 #include "VertexBufferLayout.h"
 #include "Shader.h"
 
+#include <random>
+
 int main(void)
 {   
     /* Initialize the library */
@@ -76,25 +78,34 @@ int main(void)
 
         shader.SetUniform4f("u_Color", 0.2f, 0.3f, 0.8f, 1.0f);
         
-        float r = 0.0f;
-        float increment = 0.05f;
+        std::random_device rd;
+
+        // random_device 를 통해 난수 생성 엔진을 초기화 한다.
+        std::mt19937 gen(rd());
+
+        // 0 부터 99 까지 균등하게 나타나는 난수열을 생성하기 위해 균등 분포 정의.
+        std::uniform_real_distribution<float> dis(0.0, 1.0);
+        // float r = 0.05f;
+        //float increment = 0.05f;
+        
+        Renderer renderer;
         /* Loop until the user closes the window */
         while (!glfwWindowShouldClose(window))
         {
             /* Render here */
-            GLCall(glClear(GL_COLOR_BUFFER_BIT));
+            // GLCall(glClear(GL_COLOR_BUFFER_BIT));
+            renderer.Clear();
 
             // draw
            
-            shader.SetUniform4f("u_Color", r, 0.3f, 0.8f, 1.0f);
+          
+            shader.SetUniform4f("u_Color", dis(gen), dis(gen), dis(gen), dis(gen));
             
-            //GLCall(glBindVertexArray(0));
-            va.Bind();
-            ib.Bind();
 
-           GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
+           //GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));
+            renderer.Draw(va,ib,shader);
 
-            (r > 1.0f) ? r = -0.05f : r += increment;
+            //(r > 1.0f) ? r = -0.05f : r += increment;
             /* Swap front and back buffers */
             GLCall(glfwSwapBuffers(window));
 

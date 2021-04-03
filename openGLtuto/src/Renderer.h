@@ -1,34 +1,22 @@
 #ifndef _RENDERER_
 #define _RENDERER_
 
-#include <GL/glew.h>
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <sstream>
+#include "GLDebug.h"
+#include "VertexArray.h"
+#include "IndexBuffer.h"
+#include "Shader.h"
 
-/////////////////////////////////////ERROR HANDLING///////////////////////////////////////
-
-#define ASSERT(x) if(!(x)) __debugbreak(); //this macro only works for vs compiler
-#define GLCall(x) GLClearError();\
-	x;\
-	ASSERT(GLLogCall(#x,__FILE__,__LINE__))
-
-static void GLClearError()
+class Renderer
 {
-	while (glGetError() != GL_NO_ERROR);
-}
+public:
+	Renderer();
+	~Renderer();
 
-static bool GLLogCall(const char* function, const char* file, int line)
-{
+	void Clear() const;
+	void Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const;
+private:
 
-	if (GLenum error = glGetError())
-	{
-		std::cout << "[OpenGL Error] (" << std::hex << error << ")"
-			<< std::dec << function << " " << file << ": " << line << std::endl;
-		return false;
-	}
-	return true;
-}
-//////////////////////////////////////////////////////////////////////////////////////////
+};
+
 #endif
+

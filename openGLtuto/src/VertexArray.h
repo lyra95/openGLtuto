@@ -1,7 +1,7 @@
 #ifndef _VERTEXARRAY_
 #define _VERTEXARRAY_
 
-#include "Renderer.h"
+#include "GLDebug.h"
 #include "VertexBuffer.h"
 #include "VertexBufferLayout.h"
 

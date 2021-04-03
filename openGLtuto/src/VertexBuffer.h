@@ -1,6 +1,7 @@
 #ifndef _VERTEXBUFFER_
 #define _VERTEXBUFFER_
 
+#include "GLDebug.h"
 
 class VertexBuffer
 {

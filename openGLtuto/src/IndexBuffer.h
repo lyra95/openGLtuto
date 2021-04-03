@@ -1,7 +1,7 @@
 #ifndef _INDEXBUFFER_
 #define _INDEXBUFFER_
 
-
+#include "GLDebug.h"
 
 class IndexBuffer
 {

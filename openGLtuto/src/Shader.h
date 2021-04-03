@@ -1,7 +1,13 @@
 #ifndef _SHADER_
 #define _SHADER_
 
-#include "Renderer.h"
+#include <string>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+
+#include "GLDebug.h"
+
 struct ShaderProgramSource
 {
     std::string VextexSource;
