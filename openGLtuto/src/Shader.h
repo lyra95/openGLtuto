@@ -8,6 +8,7 @@
 #include <unordered_map>
 
 #include "GLDebug.h"
+#include <mat4x4.hpp>
 
 struct ShaderProgramSource
 {
@@ -25,6 +26,7 @@ public:
 
     void SetUniformi(const std::string& name, int value);
     void SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3);
+    void SetUniformMat4by4(const std::string& name, glm::mat4x4& mat);
 private:
     std::string m_FilePath;
     unsigned int m_RendererID;

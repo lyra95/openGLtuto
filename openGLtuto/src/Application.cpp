@@ -1,5 +1,9 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <vec4.hpp>
+#include <mat4x4.hpp>
+#include <matrix.hpp>
+
 
 #include <string>
 #include <iostream>
@@ -14,8 +18,10 @@
 
 #include <random>
 #include "Texture.h"
+#include <trigonometric.hpp>
+#include <gtc/matrix_transform.hpp>
 
-int main(void)
+int main1(void)
 {   
     /* Initialize the library */
     if (!glfwInit())
@@ -26,7 +32,7 @@ int main(void)
         
 
         /* Create a windowed mode window and its OpenGL context */
-        window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+        window = glfwCreateWindow(1000, 1000, "Hello World", NULL, NULL);
         if (!window)
         {
             glfwTerminate();
@@ -50,10 +56,10 @@ int main(void)
 
         // triangle positions
         float positions[] = {
-            -0.5f, -1.0f, 0.0f, 0.0f,
-             0.5f, -1.0f, 1.0f, 0.0f,
-             0.5f, 0.5f, 1.0f, 1.0f,
-            -0.5f, 0.5f, 0.0f, 1.0f
+            -0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f,
+             0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 0.0f,
+             0.5f,  0.5f, 0.5f, 1.0f, 1.0f, 1.0f,
+            -0.5f,  0.5f, 0.5f, 1.0f, 0.0f, 1.0f
         };
 
         GLCall(glEnable(GL_BLEND));
@@ -64,23 +70,30 @@ int main(void)
                 2,3,0
         };
 
-        VertexBuffer vb(positions, 4 * 4 * sizeof(float));
+        VertexBuffer vb(positions, 4 * 6 * sizeof(float));
         IndexBuffer ib(indices, 6);
                 
         VertexArray va;
         VertexBufferLayout layout;
-        layout.Push<float>(2);
+        layout.Push<float>(4);
         layout.Push<float>(2);
         va.AddBuffer(vb, layout);
         
         Shader shader("res/shaders/Basic.shader");
         shader.Bind();
-        //shader.SetUniform4f("u_Color", 0.2f, 0.3f, 0.8f, 1.0f);
+        shader.SetUniform4f("u_Color", 0.2f, 0.3f, 0.8f, 1.0f);
         
         Texture texture("res/img.png");
         texture.Bind(0);
         shader.SetUniformi("u_Texture", 0);
 
+        glm::vec4 c1(1.0f, 0.0f, 0.0f, 0.0f);
+        glm::vec4 c2(0.0f, 1.0f, 0.0f, 0.0f);
+        glm::vec4 c3(0.0f, 0.0f, 0.0f, -1.0f);
+        glm::vec4 c4(0.0f, 0.0f, 1.0f, 0.0f);
+
+        glm::mat4x4 proj(c1,c2,c3,c4); //glm::identity<glm::mat4x4>(); // glm::perspective(glm::radians(90.f), 1.0f, 0.00f, 10000.0f);
+        shader.SetUniformMat4by4("u_proj", proj);
         std::random_device rd;
 
         // random_device 를 통해 난수 생성 엔진을 초기화 한다.
@@ -90,6 +103,7 @@ int main(void)
         std::uniform_real_distribution<float> dis(0.0, 1.0);
         // float r = 0.05f;
         //float increment = 0.05f;
+        
         
         Renderer renderer;
         /* Loop until the user closes the window */
