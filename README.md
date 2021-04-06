@@ -8,19 +8,19 @@ https://www.youtube.com/playlist?list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GGOS2
 
 # C. Required Library
 
-GLEW 2.1.0 (32bit)
+1) GLEW 2.1.0 (32bit)
 
 path: ./Dependency/GLEW
 
-GLFW 3.3.3 (32bit)
+2) GLFW 3.3.3 (32bit)
 
 path: ./Dependency/GLFW
 
-glm
+3) glm
 
 path: ./Dependency/glm
 
-stb img loader
+4) stb img loader
 
 path: openGLtuto\openGLtuto\src\vender
 
