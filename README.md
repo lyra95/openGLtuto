@@ -1,3 +1,7 @@
+3D cube drawing with simple light-weight wrapper library to openGL.
+
+DrawCube.cpp contains the entry point.( main function ) 
+
 I'm practicing openGL through this course:
 https://www.youtube.com/playlist?list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GGOS2
 # A. Development Enviroment
