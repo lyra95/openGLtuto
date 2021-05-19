@@ -27,6 +27,8 @@ path: openGLtuto\openGLtuto\src\vender
 # D. Run specification
 binary output: openGLtuto\bin\Win32Release\openGLtuto.exe
 
-output and directory(openGLtuto\res , including the files inside) are need to be in same diretory.
+To Run openGLtuto.exe, this .exe needs to be in the same directory with openGLtuto\res
+
+(Because texture image is in openGLtuto\res)
 
 If you succeed, you would see a new window with cube drawn on it.
